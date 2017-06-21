@@ -120,8 +120,7 @@ public class VentanaInventario extends JFrame implements ActionListener {
 					if (precio<0){
 						JOptionPane.showMessageDialog(null, "Registro no agregado: Precio incorrecto");
 					}else{
-		
-			
+					
 						claseProducto = claseProducto.toLowerCase();
 
 
@@ -153,7 +152,6 @@ public class VentanaInventario extends JFrame implements ActionListener {
 		if (e.getSource() == botonAumentar) {
 
 			conexion.connect();
-
 
 			String productoAumentar = JOptionPane.showInputDialog("Introducta Descripcion del producto a aumentar");
 			String cantidadAumentar = JOptionPane.showInputDialog("Introducta la cantidad de productos a añadir");
