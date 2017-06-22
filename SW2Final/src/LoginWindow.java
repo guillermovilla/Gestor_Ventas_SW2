@@ -26,8 +26,8 @@ public class LoginWindow extends JFrame implements ActionListener {
 	private DBConection oDBConection;
 	private Connection cn;
 
-	private String tipo;
-	private int id;
+	public static String tipo;
+	public static int id;
 	
 	public LoginWindow() {
 		startWindow();

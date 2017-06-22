@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
@@ -25,6 +26,8 @@ public class MainWindow extends JFrame implements ActionListener {
 	private VentanaInventario oVentanaInventario;
 	private AdminWindow oAdminWindow;
 	
+	private String tipo;
+	
 	private JFrame frame;
 	
 	private JPanel panel;
@@ -41,6 +44,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		frame = new JFrame();
 		frame.setBounds(350, 300, 450, 340);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -76,6 +80,13 @@ public class MainWindow extends JFrame implements ActionListener {
 		btnHistorial = new JButton("Historial Ventas");
 		btnHistorial.setBounds(10, 190, 425, 80);
 		frame.getContentPane().add(btnHistorial);
+		
+		String i = LoginWindow.tipo;
+		
+		if(!i.equals("administrador")) {
+			m1.setEnabled(false);
+		}
+		
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -102,8 +113,8 @@ public class MainWindow extends JFrame implements ActionListener {
 		
 		try {
 			if(e.getSource() == m1) {
-				oAdminWindow = new AdminWindow();
-				oAdminWindow.getFrame().setVisible(true);
+					oAdminWindow = new AdminWindow();
+					oAdminWindow.getFrame().setVisible(true);
 			}
 		}
 		catch(Exception e1) {
