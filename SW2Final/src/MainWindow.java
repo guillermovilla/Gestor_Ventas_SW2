@@ -4,6 +4,9 @@ import java.awt.Window;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
@@ -12,20 +15,23 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame implements ActionListener {
 
+	private JMenuBar mb;
+	private JMenu mAdmin, mAyuda;
+	private JMenuItem m1, m2;
+	
 	private SellWindow oSellWindow;
 	private VentanaInventario oVentanaInventario;
 	
 	private JFrame frame;
+	
+	private JPanel panel;
+	
+	private JButton btnVenta;
+	private JButton btnInventario;
+	private JButton btnHistorial;
 
-	/**
-	 * Launch the application.
-	 */
-
-	/**
-	 * Create the application.
-	 */
 	public MainWindow() {
 		initialize();
 	}
@@ -35,34 +41,63 @@ public class MainWindow extends JFrame {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(70, 70, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(70, 70, 450, 340);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		frame.setTitle("Ventana Principal");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		frame.setResizable(false);
 		
-		JPanel panel = new JPanel();
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(new GridLayout(3, 1, 0, 0));
+		mb = new JMenuBar();
+		frame.setJMenuBar(mb);
+		mAdmin = new JMenu("Administrador");
+		mAyuda = new JMenu("Ayuda");
+		mb.add(mAdmin);
+		mb.add(mAyuda);
 		
-		JButton btnVenta = new JButton("Venta");
+		m1 = new JMenuItem("Añadir o eliminar usuarios");
+		mAdmin.add(m1);
 		
-		btnVenta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		m2 = new JMenuItem("Acerca de ...");
+		mAyuda.add(m2);
+		
+		btnVenta = new JButton("Venta");	
+		btnVenta.setBounds(10, 10, 425, 80);
+		frame.getContentPane().add(btnVenta);
+		btnVenta.addActionListener(this);
+		
+		btnInventario = new JButton("Inventario");
+		btnInventario.setBounds(10, 100, 425, 80);
+		frame.getContentPane().add(btnInventario);
+		btnInventario.addActionListener(this);
+		
+		btnHistorial = new JButton("Historial Ventas");
+		btnHistorial.setBounds(10, 190, 425, 80);
+		frame.getContentPane().add(btnHistorial);
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		
+		try {
+			if(e.getSource() == btnVenta) {
 				oSellWindow = new SellWindow();
 				oSellWindow.getFrame().setVisible(true);
-				//frame.setVisible(false);
 			}
-		});
+		}
+		catch(Exception e1){
+			
+		}
 		
-		panel.add(btnVenta);
-		
-		JButton btnInventario = new JButton("Inventario");
-		panel.add(btnInventario);
-		btnInventario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e2) {
+		try {
+			if(e.getSource() == btnInventario) {
 				oVentanaInventario = new VentanaInventario();
 				oVentanaInventario.getFrame().setVisible(true);
 			}
-		});
+		}
+		catch(Exception e1) {
+			
+		}
+		
 	}
 
 	public Window getFrame() {

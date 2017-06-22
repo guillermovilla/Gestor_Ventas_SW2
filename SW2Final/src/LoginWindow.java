@@ -54,9 +54,9 @@ public class LoginWindow extends JFrame implements ActionListener {
 		passLabel.setBounds(59, 170, 86, 14);
 		frame.getContentPane().add(passLabel);
 		
-		JLabel uTypeLabel = new JLabel("Tipo de usuario: ");
-		uTypeLabel.setBounds(38, 70, 120, 14);
-		frame.getContentPane().add(uTypeLabel);
+//		JLabel uTypeLabel = new JLabel("Tipo de usuario: ");
+//		uTypeLabel.setBounds(38, 70, 120, 14);
+//		frame.getContentPane().add(uTypeLabel);
 		
 		userField = new JTextField();
 		userField.setBounds(150, 115, 176, 25);
@@ -110,7 +110,6 @@ public class LoginWindow extends JFrame implements ActionListener {
 	
 	public void setTipo(String c) {
 		tipo = c;	
-		System.out.println(tipo);
 	}
 	public String getTipo() {
 		return tipo;
@@ -118,7 +117,6 @@ public class LoginWindow extends JFrame implements ActionListener {
 	
 	public void setId(int i) {
 		id = i;
-		System.out.println(id);
 	}
 	public int getId() {
 		return id;
