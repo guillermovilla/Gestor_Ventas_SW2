@@ -81,7 +81,44 @@ public class DBConection {
 		
 		return correctLogin;
 	}
+	
+	public void anadirUsuario(String nombre, String contrasena, String tipo) throws SQLException{
+		String sentenciaSQL;
+		
+		connect();
+		Statement st = con.createStatement();
+		
+		try{
+			sentenciaSQL = "INSERT INTO login(name, password, type) values ('" + nombre + "', '" + contrasena + "', '" + tipo + "')";
+			
+			st.executeUpdate(sentenciaSQL);
+			
+			JOptionPane.showMessageDialog(null, "Usuario agregado!");
+		}
+		catch(Exception e1) {
+			JOptionPane.showMessageDialog(null, "Error, usuario no agregado");
+		}
+		
+	}
 
+	public void eliminarUsuario(String nombre) throws SQLException {
+		String sentenciaSQL;
+		
+		connect();
+		Statement st = con.createStatement();
+		
+		try {
+			sentenciaSQL = "DELETE FROM login where name ='" + nombre + "'";
+			st.executeUpdate(sentenciaSQL);
+			
+			JOptionPane.showMessageDialog(null, "Usuario eliminado!");
+		}
+		catch(Exception e1) {
+			
+		}
+		
+	}
+	
 	public void aniadirProducto(String descripcion, double precio, int cantidad) throws SQLException {
 		// TODO Auto-generated method stub
 
@@ -190,4 +227,5 @@ public class DBConection {
 	public Connection getConection() {
 		return con;
 	}
+
 }

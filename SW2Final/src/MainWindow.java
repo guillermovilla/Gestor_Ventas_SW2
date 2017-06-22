@@ -23,6 +23,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	
 	private SellWindow oSellWindow;
 	private VentanaInventario oVentanaInventario;
+	private AdminWindow oAdminWindow;
 	
 	private JFrame frame;
 	
@@ -41,7 +42,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(70, 70, 450, 340);
+		frame.setBounds(350, 300, 450, 340);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		frame.setTitle("Ventana Principal");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,6 +57,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		mb.add(mAyuda);
 		
 		m1 = new JMenuItem("Añadir o eliminar usuarios");
+		m1.addActionListener(this);
 		mAdmin.add(m1);
 		
 		m2 = new JMenuItem("Acerca de ...");
@@ -98,6 +100,15 @@ public class MainWindow extends JFrame implements ActionListener {
 			
 		}
 		
+		try {
+			if(e.getSource() == m1) {
+				oAdminWindow = new AdminWindow();
+				oAdminWindow.getFrame().setVisible(true);
+			}
+		}
+		catch(Exception e1) {
+			
+		}
 	}
 
 	public Window getFrame() {
