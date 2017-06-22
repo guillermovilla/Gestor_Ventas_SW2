@@ -56,7 +56,7 @@ public class SellWindow extends JFrame implements ActionListener{
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(700, 70, 900, 650);
+		frame.setBounds(700, 70, 800, 550);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		frame.setTitle("Ventas");
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
