@@ -2,6 +2,9 @@ import java.awt.EventQueue;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,11 +22,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
+import javax.swing.event.CaretListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import java.awt.BorderLayout;
 
 public class SellWindow extends JFrame implements ActionListener{
 
+	private String cadenaCategoria;
+	
 	private JFrame frame;
 	
 	private JLabel idLabel;
@@ -111,11 +119,22 @@ public class SellWindow extends JFrame implements ActionListener{
 		frame.getContentPane().add(buyButton);
 		buyButton.addActionListener(this);
 		
+		oDBConection = new DBConection();
+		cn = oDBConection.connect();
+		
 		listCat = new JList();
 		listCat.setBounds(500, 120, 150, 300);
 		catModel = new DefaultListModel();
 		listCat.setModel(catModel);
 		frame.getContentPane().add(listCat);
+		
+		listCat.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                	cadenaCategoria = (String) listCat.getSelectedValue();
+                	llenarProducto();
+            }
+        });
 		
 		listProd = new JList();
 		listProd.setBounds(700, 120, 150, 300);
@@ -123,8 +142,7 @@ public class SellWindow extends JFrame implements ActionListener{
 		listProd.setModel(prodModel);
 		frame.getContentPane().add(listProd);
 		
-		oDBConection = new DBConection();
-		cn = oDBConection.connect();
+		
 		
 		String[] cat = {"Partes de arriba", "Partes de abajo", "Calzado", "Accesorios"};
 		
@@ -166,6 +184,28 @@ public class SellWindow extends JFrame implements ActionListener{
 		}
 	}
 	
+	private void llenarProducto() {
+		// TODO Auto-generated method stub
+		prodModel.clear();
+		
+		String sentenciaSQL = "SELECT * FROM "+ cadenaCategoria + "";
+		String datos[]= new String[1];
+		
+		try {
+			oDBConection.connect();
+			
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(sentenciaSQL);
+			while(rs.next()) {
+				datos[0] = rs.getString("nombre");
+				prodModel.addElement(datos[0]);
+			}		
+		}
+		catch(Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+
 	private void llenarCat(String c) {
 		// TODO Auto-generated method stub
 		String categorias = c;
@@ -191,21 +231,6 @@ public class SellWindow extends JFrame implements ActionListener{
 			catModel.addElement("pulseras");
 			catModel.addElement("otros");
 		}
-//		String sentenciaSQL = "select * from categorias";
-//		String datos[]= new String[1];
-//		
-//		try {
-//			oDBConection.connect();
-//			Statement st = cn.createStatement();
-//			ResultSet rs = st.executeQuery(sentenciaSQL);
-//			while(rs.next()) {
-//				datos[0] = rs.getString("nombre");
-//				catModel.addElement(datos[0]);
-//			}		
-//		}
-//		catch(Exception e1) {
-//			
-//		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -308,6 +333,7 @@ public class SellWindow extends JFrame implements ActionListener{
 			}
 		}
 		catch(Exception e3) {
+			
 		}	
 	}
 
