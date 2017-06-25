@@ -80,18 +80,18 @@ public class SellWindow extends JFrame implements ActionListener{
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		
-//		idLabel = new JLabel("IDproducto");
-//		idLabel.setBounds(80, 80, 120, 20);
-//		frame.getContentPane().add(idLabel);
-//		
-//		idText = new JTextField();
-//		idText.setBounds(170, 80, 150, 20);
-//		frame.getContentPane().add(idText);
-//		
-//		addButton = new JButton("Agregar");
-//		addButton.setBounds(350, 80, 100, 20);
-//		frame.getContentPane().add(addButton);
-//		addButton.addActionListener(this);
+		idLabel = new JLabel("IDproducto");
+		idLabel.setBounds(500, 80, 120, 20);
+		frame.getContentPane().add(idLabel);
+		
+		idText = new JTextField();
+		idText.setBounds(590, 80, 120, 20);
+		frame.getContentPane().add(idText);
+		
+		addButton = new JButton("Agregar");
+		addButton.setBounds(750, 80, 100, 20);
+		frame.getContentPane().add(addButton);
+		addButton.addActionListener(this);
 		
 //		productList = new JList();
 //		productList.setBounds(80, 150, 500, 300);
@@ -297,7 +297,7 @@ public class SellWindow extends JFrame implements ActionListener{
 //					descr ="SELECT * FROM productos WHERE idproducto ='" + id + "'";
 					
 					
-					insertar = cn.prepareStatement("INSERT INTO compra (descripcion, precio) SELECT descripcion, precio FROM productos WHERE idproducto ='" + id + "'") ;
+					insertar = cn.prepareStatement("INSERT INTO compra (nombre, precio) SELECT nombre, precio FROM productos WHERE idproducto ='" + id + "'") ;
 					insertar.execute();
 					
 					imprime = "SELECT * FROM compra";
@@ -307,7 +307,7 @@ public class SellWindow extends JFrame implements ActionListener{
 					String d = "";
 					String n = "";
 					while(rs2.next()) {
-						z += ("" + rs2.getString("descripcion") + "\n");
+						z += ("" + rs2.getString("nombre") + "\n");
 						areaDescripcion.setText(z);
 						
 						d += ("" + rs2.getString("precio") + "€\n");

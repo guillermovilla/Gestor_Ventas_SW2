@@ -14,10 +14,14 @@ import javax.swing.JPanel;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
+import java.sql.Connection;
 
 public class MainWindow extends JFrame implements ActionListener {
-
+	
 	private JMenuBar mb;
 	private JMenu mAdmin, mAyuda;
 	private JMenuItem m1, m2;
@@ -25,6 +29,9 @@ public class MainWindow extends JFrame implements ActionListener {
 	private SellWindow oSellWindow;
 	private VentanaInventario oVentanaInventario;
 	private AdminWindow oAdminWindow;
+	private DBConection oDBConection;
+	private Connection cn;
+	private Connection con;
 	
 	private String tipo;
 	
@@ -86,6 +93,14 @@ public class MainWindow extends JFrame implements ActionListener {
 		if(!i.equals("administrador")) {
 			m1.setEnabled(false);
 		}
+		
+		oDBConection = new DBConection();
+		cn = oDBConection.connect();
+
+		String sentenciaSQL;
+		String nombre = null;
+		
+		oDBConection.comprobarStock();
 		
 	}
 	

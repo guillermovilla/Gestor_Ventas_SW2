@@ -1,7 +1,3 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.*;
 
 import javax.swing.JOptionPane;
@@ -227,5 +223,31 @@ public class DBConection {
 	public Connection getConection() {
 		return con;
 	}
+
+	public void comprobarStock() {
+		// TODO Auto-generated method stub
+		con = connect();
+		String sentenciaSQL;
+		String nombre = null;
+		
+		try {
+			Statement st = con.createStatement();
+			sentenciaSQL = "SELECT nombre, cantidad FROM productos WHERE cantidad < 5";
+			
+			ResultSet rs = st.executeQuery(sentenciaSQL);
+			
+			while(rs.next() == true) {
+				nombre = rs.getString("nombre");
+				JOptionPane.showMessageDialog(null, "Atención stock de " + nombre + " bajo");
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+
 
 }

@@ -1,8 +1,6 @@
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.*;
 
 import javax.swing.*;
@@ -96,6 +94,7 @@ public class LoginWindow extends JFrame implements ActionListener {
 			}
 			
 			if(correctLogin) {
+				
 				correctLogin = true;
 				MainWindow ventanap = new MainWindow();
 				ventanap.getFrame().setVisible(true);
