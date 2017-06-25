@@ -101,21 +101,21 @@ public class SellWindow extends JFrame implements ActionListener{
 		
 		areaDescripcion = new JTextArea();
 		scrollPane = new JScrollPane(areaDescripcion);
-		scrollPane.setBounds(80, 120, 200, 300);
+		scrollPane.setBounds(500, 120, 200, 300);
 		frame.getContentPane().add(scrollPane);
 		
 		areaPrecio = new JTextArea();
 		scrollPane = new JScrollPane(areaPrecio);
-		scrollPane.setBounds(300, 120, 150, 300);
+		scrollPane.setBounds(700, 120, 150, 300);
 		frame.getContentPane().add(scrollPane);
 		
 		
 		totalText = new JTextArea("Precio Total: ");
-		totalText.setBounds(220, 430, 230, 20);
+		totalText.setBounds(620, 430, 230, 20);
 		frame.getContentPane().add(totalText);
 		
 		buyButton = new JButton("Confirmar");
-		buyButton.setBounds(300, 460, 150, 20);
+		buyButton.setBounds(700, 460, 150, 20);
 		frame.getContentPane().add(buyButton);
 		buyButton.addActionListener(this);
 		
@@ -123,7 +123,7 @@ public class SellWindow extends JFrame implements ActionListener{
 		cn = oDBConection.connect();
 		
 		listCat = new JList();
-		listCat.setBounds(500, 120, 150, 300);
+		listCat.setBounds(80, 120, 120, 300);
 		catModel = new DefaultListModel();
 		listCat.setModel(catModel);
 		frame.getContentPane().add(listCat);
@@ -137,13 +137,20 @@ public class SellWindow extends JFrame implements ActionListener{
         });
 		
 		listProd = new JList();
-		listProd.setBounds(700, 120, 150, 300);
+		listProd.setBounds(220, 120, 180, 300);
 		prodModel = new DefaultListModel();
 		listProd.setModel(prodModel);
-		frame.getContentPane().add(listProd);
-		
-		
-		
+		frame.getContentPane().add(listProd);		
+
+		listProd.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount() == 2) {
+					String c1 = (String) listProd.getSelectedValue();
+					anadirVenta(c1, cadenaCategoria);
+				}
+			}
+		});
+
 		String[] cat = {"Partes de arriba", "Partes de abajo", "Calzado", "Accesorios"};
 		
 		tipoCombo = new JComboBox(cat);
@@ -188,7 +195,7 @@ public class SellWindow extends JFrame implements ActionListener{
 		// TODO Auto-generated method stub
 		prodModel.clear();
 		
-		String sentenciaSQL = "SELECT * FROM "+ cadenaCategoria + "";
+		String sentenciaSQL = "SELECT * FROM productos WHERE categoria = '" + cadenaCategoria + "'";
 		String datos[]= new String[1];
 		
 		try {
@@ -233,6 +240,42 @@ public class SellWindow extends JFrame implements ActionListener{
 		}
 	}
 
+	public void anadirVenta(String c, String categoria) {
+			PreparedStatement inserta = null;
+			
+			try {
+				float total = 0;
+				inserta = cn.prepareStatement("INSERT INTO compra (nombre, precio) SELECT nombre, precio FROM productos WHERE nombre = '" + c + "'");
+				Statement st = cn.createStatement();
+				inserta.execute();
+
+				String imprime = "SELECT * FROM compra";
+
+				ResultSet rs = st.executeQuery(imprime);
+				String z = "";
+				String d = "";
+				String n = "";
+				while(rs.next()) {
+					z += ("" + rs.getString("nombre") + "\n");
+					areaDescripcion.setText(z);
+
+					d += ("" + rs.getString("precio") + "€\n");
+					areaPrecio.setText(d);
+
+					total += (rs.getFloat("precio"));
+					n = Float.toString(total);
+					totalText.setText("Precio Total: " + n +"€");
+					}
+				}
+
+			catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	}
+	
+	
 	public void actionPerformed(ActionEvent e) {
 		
 		try {
@@ -301,25 +344,35 @@ public class SellWindow extends JFrame implements ActionListener{
 					String n = "";
 					String n2 = "";
 					String productoDis = "";
-					int r;									
-					
+					String categoriaDis = "";
+					int cant;
+					int r;						
+					int v = LoginWindow.idV;
+
 					while(rs2.next()) {
-						prod += (rs2.getString("descripcion"));
+						cant = (rs2.getInt("cantidad"));
+						prod += (rs2.getString("nombre"));
 						prod += ", ";
 						total += (rs2.getFloat("precio"));
-						productoDis = (rs2.getString("descripcion"));
-						
-						n2 = "UPDATE productos SET cantidad=cantidad-1 WHERE descripcion= '" + productoDis + "'";
-						r = st2.executeUpdate(n2);
-						
-						n = Float.toString(total);	
-					}	
-					insertar2 = cn.prepareStatement("INSERT INTO log (productos, precio) values ('" + prod + "', '"+ total +"')") ;
-					insertar2.execute();
-					
-					JOptionPane.showMessageDialog(null, "Venta realizada con éxito");
-					frame.setVisible(false);
+						productoDis = (rs2.getString("nombre"));
 
+						if(cant <= 0) {
+							JOptionPane.showMessageDialog(null, "No se dispone de la suficiente cantidad de alguno de los productos!");
+							break;
+						}
+						else {
+							n2 = "UPDATE productos SET cantidad = cantidad-1 WHERE nombre= '" + productoDis + "'";
+							r = st2.executeUpdate(n2);
+
+							n = Float.toString(total);	
+
+						}	
+						insertar2 = cn.prepareStatement("INSERT INTO log (productos, vendedor, precio) values ('" + prod + "', '" + v + "' ,'"+ total +"')") ;
+						insertar2.execute();
+
+						JOptionPane.showMessageDialog(null, "Venta realizada con éxito");
+						frame.setVisible(false);
+					}
 				}
 				catch(Exception e4) {
 
