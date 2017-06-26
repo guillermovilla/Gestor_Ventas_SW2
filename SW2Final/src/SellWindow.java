@@ -54,6 +54,7 @@ public class SellWindow extends JFrame implements ActionListener{
 	
 	private DBConection oDBConection;
 	private LoginWindow oLoginWindow;
+	private GeneratePDFFile oPDF;
 	private Connection cn;
 
 	private JScrollPane scrollPane;
@@ -67,7 +68,8 @@ public class SellWindow extends JFrame implements ActionListener{
 	private JComboBox tipoCombo;
 	
 	private Date fecha;
-	private DateFormat hourdateFormat;
+	private DateFormat hourFormat;
+	private DateFormat dateFormat;
 	
 	/**
 	 * Create the application.
@@ -372,8 +374,9 @@ public class SellWindow extends JFrame implements ActionListener{
 		try {
 			if(e.getSource() == buyButton) {
 				
-				fecha = new Date();	
-				hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+				fecha = new Date();
+				dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+				hourFormat = new SimpleDateFormat("HH:mm:ss");
 			
 				PreparedStatement insertar2 = null;
 				Statement st2 = cn.createStatement();
@@ -407,9 +410,11 @@ public class SellWindow extends JFrame implements ActionListener{
 
 						n = Float.toString(total);	
 					}
-					insertar2 = cn.prepareStatement("INSERT INTO log (fecha, productos, vendedor, precio) values ('" + fecha + "','"+ prod + "', '" + v + "' ,'"+ total +"')") ;
+					insertar2 = cn.prepareStatement("INSERT INTO log (fecha, hora, productos, vendedor, precio) values ('" + dateFormat.format(fecha) + "','" + hourFormat.format(fecha) + "','"+ prod + "', '" + v + "' ,'"+ total +"')") ;
 					insertar2.execute();
-
+					oPDF = new GeneratePDFFile();
+					oPDF.creaPDF(fecha);
+					
 					JOptionPane.showMessageDialog(null, "Venta realizada con éxito");
 					frame.setVisible(false);
 
