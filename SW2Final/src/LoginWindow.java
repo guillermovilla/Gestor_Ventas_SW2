@@ -1,6 +1,8 @@
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.*;
 
 import javax.swing.*;
@@ -9,7 +11,7 @@ import javax.swing.*;
 
 public class LoginWindow extends JFrame implements ActionListener {
 	
-	public static int idV = 0;
+	public static int id;
 	
 	// Declaracion de la ventana de login
 	JFrame frame;
@@ -25,7 +27,6 @@ public class LoginWindow extends JFrame implements ActionListener {
 	private Connection cn;
 
 	public static String tipo;
-	public static int id;
 	
 	public LoginWindow() {
 		startWindow();
@@ -35,7 +36,7 @@ public class LoginWindow extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		// Implementacion y caracteristicas del frame
 		tipo = null;
-		id = 0;
+		//id = 0;
 		
 		frame = new JFrame();
 		frame.setBounds(650, 320, 540, 370);
@@ -94,7 +95,6 @@ public class LoginWindow extends JFrame implements ActionListener {
 			}
 			
 			if(correctLogin) {
-				
 				correctLogin = true;
 				MainWindow ventanap = new MainWindow();
 				ventanap.getFrame().setVisible(true);

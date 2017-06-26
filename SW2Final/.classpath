@@ -3,5 +3,33 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/mysql-connector-java-3.0.17-ga/mysql-connector-java-3.0.17-ga-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-barcodes-7.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-barcodes-7.0.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-barcodes-7.0.2-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-font-asian-7.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-font-asian-7.0.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-forms-7.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-layout-7.0.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-forms-7.0.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-forms-7.0.2-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-hyph-7.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-hyph-7.0.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-io-7.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-io-7.0.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-io-7.0.2-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-kernel-7.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-kernel-7.0.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-kernel-7.0.2-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-layout-7.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-layout-7.0.2-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-pdfa-7.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-pdfa-7.0.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-pdfa-7.0.2-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-pdftest-7.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-pdftest-7.0.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-pdftest-7.0.2-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-sign-7.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-sign-7.0.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DesmondNB/Downloads/itext7-sign-7.0.2-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

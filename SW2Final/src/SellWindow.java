@@ -26,6 +26,10 @@ import javax.swing.event.CaretListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import java.awt.BorderLayout;
 
 public class SellWindow extends JFrame implements ActionListener{
@@ -49,6 +53,7 @@ public class SellWindow extends JFrame implements ActionListener{
 	JScrollPane scrollpaneLista;
 	
 	private DBConection oDBConection;
+	private LoginWindow oLoginWindow;
 	private Connection cn;
 
 	private JScrollPane scrollPane;
@@ -61,6 +66,9 @@ public class SellWindow extends JFrame implements ActionListener{
 
 	private JComboBox tipoCombo;
 	
+	private Date fecha;
+	private DateFormat hourdateFormat;
+	
 	/**
 	 * Create the application.
 	 */
@@ -72,6 +80,7 @@ public class SellWindow extends JFrame implements ActionListener{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		frame = new JFrame();
 		frame.setBounds(700, 70, 900, 550);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -145,8 +154,30 @@ public class SellWindow extends JFrame implements ActionListener{
 		listProd.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e) {
 				if(e.getClickCount() == 2) {
-					String c1 = (String) listProd.getSelectedValue();
-					anadirVenta(c1, cadenaCategoria);
+					String sentenciaSQL = "SELECT * FROM productos WHERE categoria = '" + cadenaCategoria + "'";
+
+					ResultSet rs;
+					try {
+						Statement st = cn.createStatement();
+						rs = st.executeQuery(sentenciaSQL);
+						while(rs.next()) {
+							int nomb = rs.getInt("cantidad");
+							if(nomb <= 0) {
+								JOptionPane.showMessageDialog(null, "No se dispone de la suficiente cantidad de alguno de los productos!");
+								break;
+							}
+							else {
+								String c1 = (String) listProd.getSelectedValue();
+								anadirVenta(c1, cadenaCategoria);
+							}
+						}
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+					
+					
 				}
 			}
 		});
@@ -290,32 +321,44 @@ public class SellWindow extends JFrame implements ActionListener{
 				String imprime = "";
 				String precioTotal = "";
 				PreparedStatement insertar = null;
+				Statement st = cn.createStatement();
 				Statement st2 = cn.createStatement();
+				String sentenciaSQL = "SELECT * FROM productos WHERE idproducto = '" + id + "'";
 				try {
 					float total = 0;
-					
-//					descr ="SELECT * FROM productos WHERE idproducto ='" + id + "'";
-					
-					
-					insertar = cn.prepareStatement("INSERT INTO compra (nombre, precio) SELECT nombre, precio FROM productos WHERE idproducto ='" + id + "'") ;
-					insertar.execute();
-					
-					imprime = "SELECT * FROM compra";
-					
-					ResultSet rs2 = st2.executeQuery(imprime);
-					String z = "";
-					String d = "";
-					String n = "";
-					while(rs2.next()) {
-						z += ("" + rs2.getString("nombre") + "\n");
-						areaDescripcion.setText(z);
-						
-						d += ("" + rs2.getString("precio") + "€\n");
-						areaPrecio.setText(d);
-						
-						total += (rs2.getFloat("precio"));
-						n = Float.toString(total);
-						totalText.setText("Precio Total: " + n +"€");
+					int cant = 0;
+
+					ResultSet rs = st.executeQuery(sentenciaSQL);
+
+					while(rs.next()) {
+						cant = (rs.getInt("cantidad"));
+						if(cant <= 0) {
+							JOptionPane.showMessageDialog(null, "No se dispone de la suficiente cantidad de alguno de los productos!");
+							break;
+						}
+						else {
+
+							insertar = cn.prepareStatement("INSERT INTO compra (nombre, precio) SELECT nombre, precio FROM productos WHERE idproducto ='" + id + "'") ;
+							insertar.execute();
+
+							imprime = "SELECT * FROM compra";
+
+							ResultSet rs2 = st2.executeQuery(imprime);
+							String z = "";
+							String d = "";
+							String n = "";
+							while(rs2.next()) {
+								z += ("" + rs2.getString("nombre") + "\n");
+								areaDescripcion.setText(z);
+
+								d += ("" + rs2.getString("precio") + "€\n");
+								areaPrecio.setText(d);
+
+								total += (rs2.getFloat("precio"));
+								n = Float.toString(total);
+								totalText.setText("Precio Total: " + n +"€");
+							}
+						}
 					}
 				}
 				catch(Exception e2) {
@@ -328,6 +371,9 @@ public class SellWindow extends JFrame implements ActionListener{
 		}
 		try {
 			if(e.getSource() == buyButton) {
+				
+				fecha = new Date();	
+				hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
 			
 				PreparedStatement insertar2 = null;
 				Statement st2 = cn.createStatement();
@@ -347,32 +393,26 @@ public class SellWindow extends JFrame implements ActionListener{
 					String categoriaDis = "";
 					int cant;
 					int r;						
-					int v = LoginWindow.idV;
+					int v = LoginWindow.id;
 
 					while(rs2.next()) {
-						cant = (rs2.getInt("cantidad"));
+						
 						prod += (rs2.getString("nombre"));
 						prod += ", ";
 						total += (rs2.getFloat("precio"));
 						productoDis = (rs2.getString("nombre"));
 
-						if(cant <= 0) {
-							JOptionPane.showMessageDialog(null, "No se dispone de la suficiente cantidad de alguno de los productos!");
-							break;
-						}
-						else {
-							n2 = "UPDATE productos SET cantidad = cantidad-1 WHERE nombre= '" + productoDis + "'";
-							r = st2.executeUpdate(n2);
+						n2 = "UPDATE productos SET cantidad = cantidad-1 WHERE nombre= '" + productoDis + "'";
+						r = st2.executeUpdate(n2);
 
-							n = Float.toString(total);	
-
-						}	
-						insertar2 = cn.prepareStatement("INSERT INTO log (productos, vendedor, precio) values ('" + prod + "', '" + v + "' ,'"+ total +"')") ;
-						insertar2.execute();
-
-						JOptionPane.showMessageDialog(null, "Venta realizada con éxito");
-						frame.setVisible(false);
+						n = Float.toString(total);	
 					}
+					insertar2 = cn.prepareStatement("INSERT INTO log (fecha, productos, vendedor, precio) values ('" + fecha + "','"+ prod + "', '" + v + "' ,'"+ total +"')") ;
+					insertar2.execute();
+
+					JOptionPane.showMessageDialog(null, "Venta realizada con éxito");
+					frame.setVisible(false);
+
 				}
 				catch(Exception e4) {
 
