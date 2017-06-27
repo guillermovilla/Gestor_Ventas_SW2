@@ -171,7 +171,8 @@ public class SellWindow extends JFrame implements ActionListener{
 		listProd.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e) {
 				if(e.getClickCount() == 2) {
-					String sentenciaSQL = "SELECT * FROM productos WHERE categoria = '" + cadenaCategoria + "'";
+					String nombre = (String) listProd.getSelectedValue();
+					String sentenciaSQL = "SELECT * FROM productos WHERE nombre = '" + nombre + "'";
 
 					ResultSet rs;
 					try {
@@ -344,6 +345,7 @@ public class SellWindow extends JFrame implements ActionListener{
 				try {
 					float total = 0;
 					int cant = 0;
+					int cont = 0;
 
 					ResultSet rs = st.executeQuery(sentenciaSQL);
 

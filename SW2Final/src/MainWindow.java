@@ -21,24 +21,25 @@ import java.awt.event.ActionEvent;
 import java.sql.Connection;
 
 public class MainWindow extends JFrame implements ActionListener {
-	
+
 	private JMenuBar mb;
 	private JMenu mAdmin, mAyuda, mCaja;
 	private JMenuItem m1, m2, caja;
-	
+
 	private SellWindow oSellWindow;
 	private VentanaInventario oVentanaInventario;
 	private AdminWindow oAdminWindow;
 	private DBConection oDBConection;
+	private VentanaHistorial oVentanaHistorial;
 	private Connection cn;
 	private Connection con;
-	
+
 	private String tipo;
-	
+
 	private JFrame frame;
-	
+
 	private JPanel panel;
-	
+
 	private JButton btnVenta;
 	private JButton btnInventario;
 	private JButton btnHistorial;
@@ -51,7 +52,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		
+
 		frame = new JFrame();
 		frame.setBounds(350, 300, 450, 340);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -59,7 +60,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
-		
+
 		mb = new JMenuBar();
 		frame.setJMenuBar(mb);
 		mAdmin = new JMenu("Administrador");
@@ -68,54 +69,55 @@ public class MainWindow extends JFrame implements ActionListener {
 		mb.add(mAdmin);
 		mb.add(mCaja);
 		mb.add(mAyuda);
-		
+
 		m1 = new JMenuItem("Añadir o eliminar usuarios");
 		m1.addActionListener(this);
 		mAdmin.add(m1);
-		
+
 		m2 = new JMenuItem("Acerca de ...");
 		mAyuda.add(m2);
-		
+
 		caja = new JMenuItem("Cerrar caja");
 		caja.addActionListener(this);
 		mCaja.add(caja);
-		
+
 		btnVenta = new JButton("Venta");	
 		btnVenta.setBounds(10, 10, 425, 80);
 		frame.getContentPane().add(btnVenta);
 		btnVenta.addActionListener(this);
-		
+
 		btnInventario = new JButton("Inventario");
 		btnInventario.setBounds(10, 100, 425, 80);
 		frame.getContentPane().add(btnInventario);
 		btnInventario.addActionListener(this);
-		
+
 		btnHistorial = new JButton("Historial Ventas");
 		btnHistorial.setBounds(10, 190, 425, 80);
 		frame.getContentPane().add(btnHistorial);
-		
+		btnHistorial.addActionListener(this);
+
 		String i = LoginWindow.tipo;
-		
+
 		if(!i.equals("administrador")) {
 			m1.setEnabled(false);
 		}
-		
+
 		if(i.equals("empleado")) {
 			btnInventario.setEnabled(false);
 		}
-		
+
 		oDBConection = new DBConection();
 		cn = oDBConection.connect();
 
 		String sentenciaSQL;
 		String nombre = null;
-		
+
 		oDBConection.comprobarStock();
-		
+
 	}
-	
+
 	public void actionPerformed(ActionEvent e) {
-		
+
 		try {
 			if(e.getSource() == btnVenta) {
 				oSellWindow = new SellWindow();
@@ -123,9 +125,9 @@ public class MainWindow extends JFrame implements ActionListener {
 			}
 		}
 		catch(Exception e1){
-			
+
 		}
-		
+
 		try {
 			if(e.getSource() == btnInventario) {
 				oVentanaInventario = new VentanaInventario();
@@ -133,26 +135,36 @@ public class MainWindow extends JFrame implements ActionListener {
 			}
 		}
 		catch(Exception e1) {
-			
+
 		}
-		
+
 		try {
-			if(e.getSource() == m1) {
-					oAdminWindow = new AdminWindow();
-					oAdminWindow.getFrame().setVisible(true);
+			if(e.getSource() == btnHistorial) {
+				oVentanaHistorial = new VentanaHistorial();
+				oVentanaHistorial.getFrame().setVisible(true);
 			}
 		}
 		catch(Exception e1) {
-			
+
 		}
-		
+
+		try {
+			if(e.getSource() == m1) {
+				oAdminWindow = new AdminWindow();
+				oAdminWindow.getFrame().setVisible(true);
+			}
+		}
+		catch(Exception e1) {
+
+		}
+
 		try {
 			if(e.getSource() == caja) {
 				oDBConection.cerrarCaja();
 			}
 		}
 		catch(Exception e1) {
-			
+
 		}
 	}
 
