@@ -17,6 +17,9 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -34,6 +37,10 @@ import java.awt.BorderLayout;
 
 public class SellWindow extends JFrame implements ActionListener{
 
+	private JMenuBar mb;
+	private JMenu mCaja, mAyuda;
+	private JMenuItem m1, m2;
+	
 	private String cadenaCategoria;
 	
 	private JFrame frame;
@@ -109,6 +116,14 @@ public class SellWindow extends JFrame implements ActionListener{
 //		frame.getContentPane().add(productList);
 //		scrollpaneLista = new JScrollPane();
 //		scrollpaneLista.setViewportView(productList);
+		
+		mb = new JMenuBar();
+		frame.setJMenuBar(mb);
+		mAyuda = new JMenu("Ayuda");
+		mb.add(mAyuda);
+		
+		m2 = new JMenuItem("Acerca de ...");
+		mAyuda.add(m2);
 		
 		areaDescripcion = new JTextArea();
 		scrollPane = new JScrollPane(areaDescripcion);

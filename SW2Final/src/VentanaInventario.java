@@ -105,11 +105,14 @@ public class VentanaInventario extends JFrame implements ActionListener {
 		if (e.getSource() == botonAniadirProducto) {
 			conexion.connect();
 		
-			String claseProducto = JOptionPane.showInputDialog("¿Que desea añadir? (Camiseta, Zapatillas, Sudadera");
+			String claseProducto = JOptionPane.showInputDialog("Escriba el nombre del producto: ");
 		
 			if (claseProducto == null || claseProducto.equals("")){
 				JOptionPane.showMessageDialog(null, "Registro no agregado: Introduzca un nombre");
 			}else{
+				
+				String categoria = JOptionPane.showInputDialog("Indique la categoría");
+				
 				int cantidad = Integer.parseInt(JOptionPane.showInputDialog("¿Cuantos productos quiere añadir?"));
 				if (cantidad < 0){
 					JOptionPane.showMessageDialog(null, "Registro no agregado: La cantidad debe ser almenos 1");
@@ -125,7 +128,7 @@ public class VentanaInventario extends JFrame implements ActionListener {
 
 
 						try {
-							conexion.aniadirProducto(claseProducto, precio, cantidad);
+							conexion.aniadirProducto(claseProducto, categoria ,precio, cantidad);
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();

@@ -23,8 +23,8 @@ import java.sql.Connection;
 public class MainWindow extends JFrame implements ActionListener {
 	
 	private JMenuBar mb;
-	private JMenu mAdmin, mAyuda;
-	private JMenuItem m1, m2;
+	private JMenu mAdmin, mAyuda, mCaja;
+	private JMenuItem m1, m2, caja;
 	
 	private SellWindow oSellWindow;
 	private VentanaInventario oVentanaInventario;
@@ -64,7 +64,9 @@ public class MainWindow extends JFrame implements ActionListener {
 		frame.setJMenuBar(mb);
 		mAdmin = new JMenu("Administrador");
 		mAyuda = new JMenu("Ayuda");
+		mCaja = new JMenu("Caja");
 		mb.add(mAdmin);
+		mb.add(mCaja);
 		mb.add(mAyuda);
 		
 		m1 = new JMenuItem("Añadir o eliminar usuarios");
@@ -73,6 +75,10 @@ public class MainWindow extends JFrame implements ActionListener {
 		
 		m2 = new JMenuItem("Acerca de ...");
 		mAyuda.add(m2);
+		
+		caja = new JMenuItem("Cerrar caja");
+		caja.addActionListener(this);
+		mCaja.add(caja);
 		
 		btnVenta = new JButton("Venta");	
 		btnVenta.setBounds(10, 10, 425, 80);
@@ -92,6 +98,10 @@ public class MainWindow extends JFrame implements ActionListener {
 		
 		if(!i.equals("administrador")) {
 			m1.setEnabled(false);
+		}
+		
+		if(i.equals("empleado")) {
+			btnInventario.setEnabled(false);
 		}
 		
 		oDBConection = new DBConection();
@@ -130,6 +140,15 @@ public class MainWindow extends JFrame implements ActionListener {
 			if(e.getSource() == m1) {
 					oAdminWindow = new AdminWindow();
 					oAdminWindow.getFrame().setVisible(true);
+			}
+		}
+		catch(Exception e1) {
+			
+		}
+		
+		try {
+			if(e.getSource() == caja) {
+				oDBConection.cerrarCaja();
 			}
 		}
 		catch(Exception e1) {

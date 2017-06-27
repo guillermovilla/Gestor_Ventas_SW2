@@ -10,6 +10,9 @@ import javax.swing.JOptionPane;
 
 public class DBConection {
 
+	private Date fecha;
+	private DateFormat formatoFecha;
+	
 	private String user;
 	private String password;
 	private String url;
@@ -118,7 +121,7 @@ public class DBConection {
 		
 	}
 	
-	public void aniadirProducto(String descripcion, double precio, int cantidad) throws SQLException {
+	public void aniadirProducto(String descripcion, String categoria, double precio, int cantidad) throws SQLException {
 		// TODO Auto-generated method stub
 
 		
@@ -130,8 +133,7 @@ public class DBConection {
 
 		try {
 
-			sentenciaSQL = "insert into productos(descripcion, cantidad, precio) values ('" + descripcion + "', '"
-					+ cantidad + "','" + precio + "'    )";
+			sentenciaSQL = "insert into productos(nombre, categoria, cantidad, precio) values ('" + descripcion + "', '" + categoria + "','"+ cantidad + "','" + precio + "')";
 
 			r = st.executeUpdate(sentenciaSQL);
 
@@ -147,7 +149,7 @@ public class DBConection {
 		String sentenciaSQL;
 		statement = con.createStatement();
 		try {
-			sentenciaSQL = "delete from productos where descripcion='" + descripcion + "'";
+			sentenciaSQL = "delete from productos where nombre='" + descripcion + "'";
 			r = statement.executeUpdate(sentenciaSQL);
 			JOptionPane.showMessageDialog(null, r + " producto eliminado");
 			;
@@ -166,7 +168,7 @@ public class DBConection {
 
 
 		try {
-			sentenciaSQL = "UPDATE productos SET cantidad=cantidad +'" + cant +  "' WHERE descripcion= '" + productoAumentar + "'";
+			sentenciaSQL = "UPDATE productos SET cantidad=cantidad +'" + cant +  "' WHERE nombre= '" + productoAumentar + "'";
 			r = statement.executeUpdate(sentenciaSQL);
 			JOptionPane.showMessageDialog(null, r + " producto aumentado");
 			;
@@ -185,7 +187,7 @@ public class DBConection {
 
 		Statement st = con.createStatement();
 		int cantidadProducto = 0;
-		ResultSet rs = st.executeQuery("SELECT cantidad FROM productos WHERE descripcion = '" + productoDisminuir +"'");
+		ResultSet rs = st.executeQuery("SELECT cantidad FROM productos WHERE nombre= '" + productoDisminuir +"'");
 
 		if(rs.next()) {
 			cantidadProducto = rs.getInt("cantidad");
@@ -195,7 +197,7 @@ public class DBConection {
 		}
 		else {
 			try {
-				sentenciaSQL = "UPDATE productos SET cantidad=cantidad- '" + dis + "'WHERE descripcion= '" + productoDisminuir + "'";
+				sentenciaSQL = "UPDATE productos SET cantidad=cantidad- '" + dis + "'WHERE nombre= '" + productoDisminuir + "'";
 				r = statement.executeUpdate(sentenciaSQL);
 				JOptionPane.showMessageDialog(null, r + " producto disminuido");
 				;
@@ -250,7 +252,36 @@ public class DBConection {
 			e.printStackTrace();
 		}
 	}
+
+	public void cerrarCaja() {
+		con = connect();
+		fecha = new Date();
+		formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
+		float total = 0;
+		int count = 0;
+		
+		String sentenciaSQL = "SELECT * FROM log WHERE fecha = '" + formatoFecha.format(fecha) + "'";
+		
+		
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sentenciaSQL);
+			Statement st2 = con.createStatement();
+			
+			while(rs.next()) {
+				count++;
+				total += rs.getInt("precio");
+			}
+			String sentenciaSQL2 = "INSERT INTO caja values ('" + formatoFecha.format(fecha) + "','" + total + "')";
+			
+			st2.execute(sentenciaSQL2);
+			JOptionPane.showMessageDialog(null, "Hoy, día " + formatoFecha.format(fecha) + " se han realizado " + count + " ventas por valor de " + total + "€");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
-
-
 }

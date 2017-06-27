@@ -28,19 +28,19 @@ public class TablaInventario extends JFrame {
 		conexion = new DBConection();
 		table = new JTable();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(900, 680, 450, 300);
+		setBounds(900, 600, 720, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 	    int id_producto, cantidad;
-        String producto;
+        String producto, categoria;
         double precio;
 		conexion.connect();
 		
         modelo = new DefaultTableModel();
 	
-        String[] columnas = { "Id_Producto", "Producto", "Precio", "Cantidad" };
+        String[] columnas = { "Id_Producto", "Producto", "Categoria" ,"Precio", "Cantidad" };
         modelo.setColumnIdentifiers(columnas);
         table.setModel(modelo);
 		Statement st = conexion.connect().createStatement();
@@ -48,13 +48,14 @@ public class TablaInventario extends JFrame {
 		
 		while (rs.next()){
 			id_producto = rs.getInt("idproducto");
-        	producto = rs.getString("descripcion");
+        	producto = rs.getString("nombre");
+        	categoria = rs.getString("categoria");
         	cantidad = rs.getInt("cantidad");
         	precio = rs.getDouble("precio");
-        	modelo.addRow(new Object[] { id_producto,producto,precio, cantidad } );
+        	modelo.addRow(new Object[] { id_producto,producto,precio, categoria, cantidad } );
 		}
 
-		table.setBounds(10, 11, 399, 223);
+		table.setBounds(10, 11, 700, 400);
 		contentPane.add(table);
 		table.setVisible(true);
 
