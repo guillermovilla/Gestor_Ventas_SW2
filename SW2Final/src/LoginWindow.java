@@ -39,18 +39,18 @@ public class LoginWindow extends JFrame implements ActionListener {
 		//id = 0;
 		
 		frame = new JFrame();
-		frame.setBounds(650, 320, 540, 370);
+		frame.setBounds(650, 320, 500, 350);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Login");
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		
 		JLabel userLabel = new JLabel("Usuario: ");
-		userLabel.setBounds(80, 120, 86, 14);
+		userLabel.setBounds(100, 155, 86, 14);
 		frame.getContentPane().add(userLabel);
 		
 		JLabel passLabel = new JLabel("Contraseña: ");
-		passLabel.setBounds(59, 170, 86, 14);
+		passLabel.setBounds(79, 205, 86, 14);
 		frame.getContentPane().add(passLabel);
 		
 //		JLabel uTypeLabel = new JLabel("Tipo de usuario: ");
@@ -58,17 +58,17 @@ public class LoginWindow extends JFrame implements ActionListener {
 //		frame.getContentPane().add(uTypeLabel);
 		
 		userField = new JTextField();
-		userField.setBounds(150, 115, 176, 25);
+		userField.setBounds(170, 150, 176, 25);
 		frame.getContentPane().add(userField);
 		userField.setColumns(20);
 		
 		passField = new JPasswordField();
-		passField.setBounds(150, 165, 176, 25);
+		passField.setBounds(170, 200, 176, 25);
 		frame.getContentPane().add(passField);
 		passField.setColumns(20);
 		
 		entryButton = new JButton("Entrar");
-		entryButton.setBounds(170, 200, 89, 23);
+		entryButton.setBounds(200, 250, 90, 25);
 		frame.getContentPane().add(entryButton);
 		entryButton.addActionListener(this);
 		

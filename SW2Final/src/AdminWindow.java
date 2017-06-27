@@ -8,6 +8,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class AdminWindow extends JFrame implements ActionListener{
@@ -55,7 +56,7 @@ public class AdminWindow extends JFrame implements ActionListener{
 		pass.setBounds(80, 130, 70, 15);
 		frame.getContentPane().add(pass);
 		
-		gPass = new JTextField();
+		gPass = new JPasswordField();
 		gPass.setBounds(160, 125, 140, 25);
 		frame.getContentPane().add(gPass);
 		
@@ -63,7 +64,7 @@ public class AdminWindow extends JFrame implements ActionListener{
 		passConf.setBounds(20, 180, 140, 15);
 		frame.getContentPane().add(passConf);
 		
-		gPassConf = new JTextField();
+		gPassConf = new JPasswordField();
 		gPassConf.setBounds(160, 175, 140, 25);
 		frame.getContentPane().add(gPassConf);
 		
