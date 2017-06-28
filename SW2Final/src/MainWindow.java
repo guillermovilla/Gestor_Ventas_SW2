@@ -27,9 +27,9 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JMenuItem m1, m2, caja, mCerrarS;
 
 	private SellWindow oSellWindow;
-	private VentanaInventario oVentanaInventario;
 	private AdminWindow oAdminWindow;
 	private DBConection oDBConection;
+	private InventoryWindow oInventoryWindow;
 	private LoginWindow oLoginWindow;
 	private VentanaHistorial oVentanaHistorial;
 	private Connection cn;
@@ -138,8 +138,11 @@ public class MainWindow extends JFrame implements ActionListener {
 
 		try {
 			if(e.getSource() == btnInventario) {
-				oVentanaInventario = new VentanaInventario();
-				oVentanaInventario.getFrame().setVisible(true);
+//				oVentanaInventario = new VentanaInventario();
+//				oVentanaInventario.getFrame().setVisible(true);
+				
+				oInventoryWindow = new InventoryWindow();
+				oInventoryWindow.getFrame().setVisible(true);
 			}
 		}
 		catch(Exception e1) {

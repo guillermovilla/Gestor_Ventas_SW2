@@ -257,6 +257,7 @@ public class DBConection {
 		con = connect();
 		fecha = new Date();
 		formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		float total = 0;
 		int count = 0;
 		

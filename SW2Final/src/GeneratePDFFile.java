@@ -99,7 +99,7 @@ public class GeneratePDFFile {
 			}
 
 			document.add(table);
-			document.add(new Paragraph("Precio total: " + totalS + "€"));
+			//document.add(new Paragraph("Precio total: " + totalS + "€"));
 			// step 6
 			document.close();
 		}

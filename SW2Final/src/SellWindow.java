@@ -405,6 +405,8 @@ public class SellWindow extends JFrame implements ActionListener{
 				fecha = new Date();
 				dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 				hourFormat = new SimpleDateFormat("HH:mm:ss");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				String fechaBD = sdf.format(fecha);
 			
 				PreparedStatement insertar2 = null;
 				Statement st2 = cn.createStatement();
@@ -438,7 +440,7 @@ public class SellWindow extends JFrame implements ActionListener{
 
 						n = Float.toString(total);	
 					}
-					insertar2 = cn.prepareStatement("INSERT INTO log (fecha, hora, productos, vendedor, precio) values ('" + dateFormat.format(fecha) + "','" + hourFormat.format(fecha) + "','"+ prod + "', '" + v + "' ,'"+ total +"')") ;
+					insertar2 = cn.prepareStatement("INSERT INTO log (fecha, hora, productos, vendedor, precio) values ('" + fechaBD + "','" + hourFormat.format(fecha) + "','"+ prod + "', '" + v + "' ,'"+ total +"')") ;
 					insertar2.execute();
 					oPDF = new GeneratePDFFile();
 					oPDF.creaPDF(fecha);
