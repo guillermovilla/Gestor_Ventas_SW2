@@ -272,8 +272,8 @@ public class DBConection {
 				count++;
 				total += rs.getInt("precio");
 			}
-			String sentenciaSQL2 = "INSERT INTO caja values ('" + formatoFecha.format(fecha) + "','" + total + "')";
-			
+		//	String sentenciaSQL2 = "INSERT INTO caja values ('" + formatoFecha.format(fecha) + "','" + total + "')";
+			String sentenciaSQL2 = "INSERT INTO caja (fecha , cantidad) VALUES ('" + formatoFecha.format(fecha) + "','" + total + "') ON DUPLICATE KEY UPDATE cantidad = '" + total + "'";
 			st2.execute(sentenciaSQL2);
 			JOptionPane.showMessageDialog(null, "Hoy, día " + formatoFecha.format(fecha) + " se han realizado " + count + " ventas por valor de " + total + "€");
 			

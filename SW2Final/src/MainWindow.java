@@ -23,13 +23,14 @@ import java.sql.Connection;
 public class MainWindow extends JFrame implements ActionListener {
 
 	private JMenuBar mb;
-	private JMenu mAdmin, mAyuda, mCaja;
-	private JMenuItem m1, m2, caja;
+	private JMenu mAdmin, mAyuda, mCaja, mSesion;
+	private JMenuItem m1, m2, caja, mCerrarS;
 
 	private SellWindow oSellWindow;
 	private VentanaInventario oVentanaInventario;
 	private AdminWindow oAdminWindow;
 	private DBConection oDBConection;
+	private LoginWindow oLoginWindow;
 	private VentanaHistorial oVentanaHistorial;
 	private Connection cn;
 	private Connection con;
@@ -64,11 +65,14 @@ public class MainWindow extends JFrame implements ActionListener {
 		mb = new JMenuBar();
 		frame.setJMenuBar(mb);
 		mAdmin = new JMenu("Administrador");
-		mAyuda = new JMenu("Ayuda");
 		mCaja = new JMenu("Caja");
+		mAyuda = new JMenu("Ayuda");
+		mSesion = new JMenu("Sesión");
+		
 		mb.add(mAdmin);
 		mb.add(mCaja);
 		mb.add(mAyuda);
+		mb.add(mSesion);
 
 		m1 = new JMenuItem("Añadir o eliminar usuarios");
 		m1.addActionListener(this);
@@ -80,6 +84,10 @@ public class MainWindow extends JFrame implements ActionListener {
 		caja = new JMenuItem("Cerrar caja");
 		caja.addActionListener(this);
 		mCaja.add(caja);
+		
+		mCerrarS = new JMenuItem("Cerrar sesión");
+		mSesion.add(mCerrarS);
+		mCerrarS.addActionListener(this);
 
 		btnVenta = new JButton("Venta");	
 		btnVenta.setBounds(10, 10, 425, 80);
@@ -165,6 +173,17 @@ public class MainWindow extends JFrame implements ActionListener {
 		}
 		catch(Exception e1) {
 
+		}
+		
+		try {
+			if(e.getSource() == mCerrarS) {
+				oLoginWindow = new LoginWindow();
+				oLoginWindow.getFrame().setVisible(true);
+				getFrame().setVisible(false);
+			}
+		}
+		catch(Exception e1) {
+			e1.printStackTrace();
 		}
 	}
 

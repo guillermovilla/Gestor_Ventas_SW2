@@ -1,4 +1,5 @@
 import java.awt.EventQueue;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -133,5 +134,10 @@ public class LoginWindow extends JFrame implements ActionListener {
 				}
 			}
 		});
+	}
+
+	public Window getFrame() {
+		// TODO Auto-generated method stub
+		return frame;
 	}
 }

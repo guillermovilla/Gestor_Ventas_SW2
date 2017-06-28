@@ -49,6 +49,7 @@ public class SellWindow extends JFrame implements ActionListener{
 	
 	private JButton addButton;
 	private JButton buyButton;
+	private JButton deshacer;
 	
 	// private JList productList;
 	private JTextArea areaDescripcion;
@@ -90,8 +91,13 @@ public class SellWindow extends JFrame implements ActionListener{
 	 */
 	private void initialize() {
 		
+		float total = 0;
+		String z = "";
+		String d = "";
+		String n = "";
+		
 		frame = new JFrame();
-		frame.setBounds(700, 70, 900, 550);
+		frame.setBounds(700, 70, 900, 600);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		frame.setTitle("Ventas");
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -110,6 +116,11 @@ public class SellWindow extends JFrame implements ActionListener{
 		addButton.setBounds(750, 80, 100, 20);
 		frame.getContentPane().add(addButton);
 		addButton.addActionListener(this);
+		
+		deshacer = new JButton("Deshacer");
+		deshacer.setBounds(700, 430, 150, 20);
+		frame.getContentPane().add(deshacer);
+		deshacer.addActionListener(this);
 		
 //		productList = new JList();
 //		productList.setBounds(80, 150, 500, 300);
@@ -137,11 +148,11 @@ public class SellWindow extends JFrame implements ActionListener{
 		
 		
 		totalText = new JTextArea("Precio Total: ");
-		totalText.setBounds(620, 430, 230, 20);
+		totalText.setBounds(700, 460, 150, 20);
 		frame.getContentPane().add(totalText);
 		
 		buyButton = new JButton("Confirmar");
-		buyButton.setBounds(700, 460, 150, 20);
+		buyButton.setBounds(700, 490, 150, 20);
 		frame.getContentPane().add(buyButton);
 		buyButton.addActionListener(this);
 		
@@ -450,6 +461,43 @@ public class SellWindow extends JFrame implements ActionListener{
 		catch(Exception e3) {
 			
 		}	
+		try {
+			if(e.getSource() == deshacer) {
+				oDBConection.connect();
+			
+				areaDescripcion.setText(null);
+				areaPrecio.setText(null);
+			
+				String sentenciaSQL = "DELETE FROM compra ORDER BY idcompra DESC limit 1";
+				String sentenciaSQL2 = "SELECT * FROM compra";
+				
+				Statement st = cn.createStatement();
+				Statement st2 = cn.createStatement();
+				
+				st.execute(sentenciaSQL);
+				
+				ResultSet rs = st2.executeQuery(sentenciaSQL2);
+				
+				float total = 0;
+				String z = "";
+				String d = "";
+				String n = "";
+				while(rs.next()) {
+					z += ("" + rs.getString("nombre") + "\n");
+					areaDescripcion.setText(z);
+
+					d += ("" + rs.getString("precio") + "€\n");
+					areaPrecio.setText(d);
+
+					total += (rs.getFloat("precio"));
+					n = Float.toString(total);
+					totalText.setText("Precio Total: " + n +"€");
+					}
+			}		
+		}
+		catch(Exception e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	public Window getFrame() {
