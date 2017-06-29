@@ -56,7 +56,7 @@ public class InventoryWindow extends JFrame implements ActionListener {
 	private void initialize() {
 		
 		frame = new JFrame();
-		frame.setBounds(100, 100, 900, 600);
+		frame.setBounds(100, 100, 900, 520);
 		frame.setTitle("Inventario");
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
@@ -70,87 +70,87 @@ public class InventoryWindow extends JFrame implements ActionListener {
 		mAyuda.add(ma);
 		
 		nombreL2 = new JLabel("Nombre");
-		nombreL2.setBounds(40, 100, 120, 20);
+		nombreL2.setBounds(40, 55, 120, 20);
 		frame.getContentPane().add(nombreL2);
 		
 		categoriaL = new JLabel("Categoria");
-		categoriaL.setBounds(40, 160, 120, 20);
+		categoriaL.setBounds(40, 115, 120, 20);
 		frame.getContentPane().add(categoriaL);
 		
 		precioL = new JLabel("Precio");
-		precioL.setBounds(40, 220, 120, 20);
+		precioL.setBounds(40, 175, 120, 20);
 		frame.getContentPane().add(precioL);
 		
 		cantL2 = new JLabel("Cantidad");
-		cantL2.setBounds(40, 280, 120, 20);
+		cantL2.setBounds(40, 235, 120, 20);
 		frame.getContentPane().add(cantL2);
 		
 		lNomb = new JTextField();
-		lNomb.setBounds(40, 120, 200, 25);
+		lNomb.setBounds(40, 75, 200, 25);
 		frame.getContentPane().add(lNomb);
 		
 		lCat = new JTextField();
-		lCat.setBounds(40, 180, 200, 25);
+		lCat.setBounds(40, 135, 200, 25);
 		frame.getContentPane().add(lCat);
 		
 		lPrec = new JTextField();
-		lPrec.setBounds(40, 240, 200, 25);
+		lPrec.setBounds(40, 195, 200, 25);
 		frame.getContentPane().add(lPrec);
 		
 		lCant = new JTextField();
-		lCant.setBounds(40, 300, 200, 25);
+		lCant.setBounds(40, 255, 200, 25);
 		frame.getContentPane().add(lCant);
 		
 		anadir = new JButton("Añadir");
-		anadir.setBounds(40, 350, 80, 25);
+		anadir.setBounds(40, 325, 80, 25);
 		frame.getContentPane().add(anadir);
 		anadir.addActionListener(this);
 		
 		eliminar = new JButton("Eliminar");
-		eliminar.setBounds(130, 350, 80, 25);
+		eliminar.setBounds(150, 325, 80, 25);
 		frame.getContentPane().add(eliminar);
 		eliminar.addActionListener(this);
 		
 		nombreL = new JLabel("Nombre");
-		nombreL.setBounds(750, 115, 100, 20);
+		nombreL.setBounds(750, 70, 100, 20);
 		frame.getContentPane().add(nombreL);
 		
 		cantL = new JLabel("Cantidad");
-		cantL.setBounds(750, 165, 100, 20);
+		cantL.setBounds(750, 120, 100, 20);
 		frame.getContentPane().add(cantL);
 		
 		cantidad = new JTextField();
-		cantidad.setBounds(750, 185, 100, 25);
+		cantidad.setBounds(750, 140, 100, 25);
 		frame.getContentPane().add(cantidad);
 		
 		nProducto = new JTextField();
-		nProducto.setBounds(750, 135, 100, 25);
+		nProducto.setBounds(750, 90, 100, 25);
 		frame.getContentPane().add(nProducto);
 		
 		add = new JButton("+");
-		add.setBounds(750, 220, 50, 30);
+		add.setBounds(750, 175, 50, 30);
 		frame.getContentPane().add(add);
 		add.addActionListener(this);
 		
 		quit = new JButton("-");
-		quit.setBounds(800, 220, 50, 30);
+		quit.setBounds(800, 175, 50, 30);
 		frame.getContentPane().add(quit);
 		quit.addActionListener(this);
 		
 		listaCategoria = new JList();
-		listaCategoria.setBounds(380, 120, 120, 300);
+		listaCategoria.setBounds(380, 75, 120, 300);
 		categoriaModel = new DefaultListModel();
 		listaCategoria.setModel(categoriaModel);
 		frame.getContentPane().add(listaCategoria);	
 		
 		listaProd = new JList();
-		listaProd.setBounds(510, 120, 160, 300);
+		listaProd.setBounds(510, 75, 160, 300);
 		prodModel = new DefaultListModel();
 		listaProd.setModel(prodModel);
 		frame.getContentPane().add(listaProd);
 		
 		listaCant = new JList();
-		listaCant.setBounds(680, 120, 50, 300);
+		listaCant.setBounds(680, 75, 50, 300);
 		cantModel = new DefaultListModel();
 		listaCant.setModel(cantModel);
 		frame.getContentPane().add(listaCant);

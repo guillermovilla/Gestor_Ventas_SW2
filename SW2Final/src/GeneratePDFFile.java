@@ -37,16 +37,22 @@ public class GeneratePDFFile {
 		DateFormat fechaFormat = new SimpleDateFormat("dd-MM-yyyy");
 		DateFormat horaFormat = new SimpleDateFormat("HH:mm:ss");
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String fechaBD = sdf.format(date);
+		
+		SimpleDateFormat sdh = new SimpleDateFormat("HH-mm-ss");
+		String horaBD = sdf.format(date);
+		
 		String nombre = fechahora.format(date);
 		nombre += ".pdf";
 
 		try {
 			String sentenciaSQL = "SELECT * FROM compra";
-			String sentenciaSQL2 = "SELECT idventa FROM log WHERE fecha = '" + fechaFormat.format(date) + "' and hora = '" + horaFormat.format(date) + "'";
+			String sentenciaSQL2 = "SELECT idventa FROM log WHERE fecha = '" + fechaBD + "' and hora = '" + horaFormat.format(date) + "'";
 			String producto = "";
-			int precio = 0;
+			float precio = 0;
 			String precioS = "";
-			int total = 0;
+			float total = 0;
 			String totalS = "";
 			int v = LoginWindow.id;
 			int idVenta = 0;
@@ -83,10 +89,11 @@ public class GeneratePDFFile {
 			
 			while(rs.next()) {
 				producto = rs.getString("nombre");
-				precio = rs.getInt("precio");
+				precio = rs.getFloat("precio");
 				total += precio;
-				precioS = Integer.toString(precio);
-				totalS = Integer.toString(precio);
+				
+				precioS = Float.toString(precio);
+				totalS = Float.toString(total);
 				
 				for(int aw=0;aw<1 ; aw++){
 					table.addCell(producto);

@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -55,93 +56,99 @@ public class VentanaHistorial extends JFrame implements ActionListener {
 		mb = new JMenuBar();
 		frame.setJMenuBar(mb);
 		mAyuda = new JMenu("Ayuda");
-		m1 = new JMenuItem("Ayuda");
+		mb.add(mAyuda);
+		
+		m1 = new JMenuItem("Instrucciones");
 		mAyuda.add(m1);
 		
 		iDL = new JLabel("ID");
-		iDL.setBounds(20, 20, 100, 20);
+		iDL.setBounds(40, 50, 100, 20);
 		frame.getContentPane().add(iDL);
 		
 		fL = new JLabel("Fecha");
-		fL.setBounds(120, 20, 120, 20);
+		fL.setBounds(140, 50, 120, 20);
 		frame.getContentPane().add(fL);
 		
 		hL = new JLabel("Hora");
-		hL.setBounds(240, 20, 120, 20);
+		hL.setBounds(260, 50, 120, 20);
 		frame.getContentPane().add(hL);
 		
 		vendL = new JLabel("Vendedor");
-		vendL.setBounds(360, 20, 120, 20);
+		vendL.setBounds(380, 50, 120, 20);
 		frame.getContentPane().add(vendL);
 		
+		cantL = new JLabel("Cantidad");
+		cantL.setBounds(500, 50, 120, 20);
+		frame.getContentPane().add(cantL);
+		
 		diaL = new JLabel("Fecha");
-		diaL.setBounds(760, 50, 120, 20);
+		diaL.setBounds(780, 80, 120, 20);
 		frame.getContentPane().add(diaL);
 		
 		mesL = new JLabel("Mes");
-		mesL.setBounds(760, 75, 120, 20);
+		mesL.setBounds(780, 105, 120, 20);
 		//frame.getContentPane().add(mesL);
 		
 		anhoL = new JLabel("Año");
-		anhoL.setBounds(760, 100, 120, 20);
+		anhoL.setBounds(780, 130, 120, 20);
 		//frame.getContentPane().add(anhoL);
 		
 		empL = new JLabel("ID");
-		empL.setBounds(760, 75, 120, 20);
+		empL.setBounds(780, 105, 120, 20);
 		frame.getContentPane().add(empL);
 		
 		campoTotal = new JTextField();
-		campoTotal.setBounds(480, 455, 120, 25);
+		campoTotal.setBounds(500, 485, 120, 25);
 		frame.add(campoTotal);
 		
 		campoFecha = new JTextField();
-		campoFecha.setBounds(630, 50, 120, 20);
+		campoFecha.setBounds(650, 80, 120, 20);
 		frame.getContentPane().add(campoFecha);
 		
 		campoMes = new JTextField();
-		campoMes.setBounds(630, 75, 120, 20);
+		campoMes.setBounds(650, 105, 120, 20);
 		//frame.getContentPane().add(campoMes);
 		
 		campoAnho = new JTextField();
-		campoAnho.setBounds(630, 100, 120, 20);
+		campoAnho.setBounds(650, 130, 120, 20);
 		//frame.getContentPane().add(campoAnho);
 		
 		campoVend = new JTextField();
-		campoVend.setBounds(630, 75, 120, 20);
+		campoVend.setBounds(650, 105, 120, 20);
 		frame.getContentPane().add(campoVend);
 		
 		buscar = new JButton("Buscar");
-		buscar.setBounds(630, 100, 80, 20);
+		buscar.setBounds(650, 130, 80, 20);
 		frame.getContentPane().add(buscar);
 		buscar.addActionListener(this);
 		
 		tL = new JLabel("Total");
-		tL.setBounds(430, 460, 120, 20);
+		tL.setBounds(450, 490, 120, 20);
 		frame.getContentPane().add(tL);
 		
 		iDTA = new JTextArea();
 		scrollPane = new JScrollPane(iDTA);
-		scrollPane.setBounds(20, 50, 100, 400);
+		scrollPane.setBounds(40, 80, 100, 400);
 		frame.getContentPane().add(scrollPane);
 		
 		fTA = new JTextArea();
 		scrollPane = new JScrollPane(fTA);
-		scrollPane.setBounds(120, 50, 120, 400);
+		scrollPane.setBounds(140, 80, 120, 400);
 		frame.getContentPane().add(scrollPane);
 		
 		hTA = new JTextArea();
 		scrollPane = new JScrollPane(hTA);
-		scrollPane.setBounds(240, 50, 120, 400);
+		scrollPane.setBounds(260, 80, 120, 400);
 		frame.getContentPane().add(scrollPane);
 		
 		vendTA = new JTextArea();
 		scrollPane = new JScrollPane(vendTA);
-		scrollPane.setBounds(360, 50, 120, 400);
+		scrollPane.setBounds(380, 80, 120, 400);
 		frame.getContentPane().add(scrollPane);
 		
 		cantTA = new JTextArea();
 		scrollPane = new JScrollPane(cantTA);
-		scrollPane.setBounds(480, 50, 120, 400);
+		scrollPane.setBounds(500, 80, 120, 400);
 		frame.getContentPane().add(scrollPane);
 		
 		oDBConection = new DBConection();
@@ -208,6 +215,7 @@ public class VentanaHistorial extends JFrame implements ActionListener {
 				}	
 				
 				String totalS = Float.toString(total);
+				
 				
 				iDTA.setText(idS);
 				vendTA.setText(vendedorS);

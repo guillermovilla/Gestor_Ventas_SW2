@@ -7,6 +7,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -30,6 +33,10 @@ public class AdminWindow extends JFrame implements ActionListener{
 	
 	private JButton add;
 	private JButton delete;
+	private JMenuBar mb;
+	private JMenu mAyuda;
+	private JMenuItem m1;
+
 	
 	public AdminWindow() {
 		initialize();
@@ -39,52 +46,60 @@ public class AdminWindow extends JFrame implements ActionListener{
 		String[] tipoUsuario = {"administrador", "gerente", "empleado"};
 		
 		frame = new JFrame(); 
-		frame.setBounds(300, 300, 600, 400);
+		frame.setBounds(300, 300, 620, 400);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		frame.setTitle("Administrador");
 		frame.getContentPane().setLayout(null);
 		
+		mb = new JMenuBar();
+		frame.setJMenuBar(mb);
+		mAyuda = new JMenu("Ayuda");
+		mb.add(mAyuda);
+		
+		m1 = new JMenuItem("Instrucciones");
+		mAyuda.add(m1);
+		
 		name = new JLabel("Nombre");
-		name.setBounds(100, 80, 50, 15);
+		name.setBounds(110, 70, 50, 15);
 		frame.getContentPane().add(name);
 		
 		gName = new JTextField();
-		gName.setBounds(160, 75, 140, 25);
+		gName.setBounds(170, 65, 140, 25);
 		frame.getContentPane().add(gName);
 		
 		pass = new JLabel("Contraseña");
-		pass.setBounds(80, 130, 70, 15);
+		pass.setBounds(90, 120, 70, 15);
 		frame.getContentPane().add(pass);
 		
 		gPass = new JPasswordField();
-		gPass.setBounds(160, 125, 140, 25);
+		gPass.setBounds(170, 125, 140, 25);
 		frame.getContentPane().add(gPass);
 		
 		passConf = new JLabel("Confirmar contraseña");
-		passConf.setBounds(20, 180, 140, 15);
+		passConf.setBounds(30, 180, 140, 15);
 		frame.getContentPane().add(passConf);
 		
 		gPassConf = new JPasswordField();
-		gPassConf.setBounds(160, 175, 140, 25);
+		gPassConf.setBounds(170, 175, 140, 25);
 		frame.getContentPane().add(gPassConf);
 		
 		type = new JLabel("Tipo de usuario");
-		type.setBounds(340, 100, 160, 15);
+		type.setBounds(350, 100, 160, 15);
 		frame.getContentPane().add(type);
 		
 		gType = new JComboBox(tipoUsuario);
 		gType.setSelectedIndex(0);
-		gType.setBounds(340, 130, 170, 25);
+		gType.setBounds(350, 130, 170, 25);
 		frame.getContentPane().add(gType);
 		gType.addActionListener(this);
 		
 		add = new JButton("Añadir");
-		add.setBounds(150, 250, 80, 25);
+		add.setBounds(160, 250, 80, 25);
 		frame.getContentPane().add(add);
 		add.addActionListener(this);
 		
 		delete = new JButton("Eliminar");
-		delete.setBounds(350, 250, 80, 25);
+		delete.setBounds(360, 250, 80, 25);
 		frame.getContentPane().add(delete);
 		delete.addActionListener(this);
 		

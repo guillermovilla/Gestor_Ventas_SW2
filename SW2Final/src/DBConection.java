@@ -121,7 +121,7 @@ public class DBConection {
 		
 	}
 	
-	public void aniadirProducto(String descripcion, String categoria, double precio, int cantidad) throws SQLException {
+	public void aniadirProducto(String descripcion, String categoria, float precio, int cantidad) throws SQLException {
 		// TODO Auto-generated method stub
 
 		
@@ -257,11 +257,13 @@ public class DBConection {
 		con = connect();
 		fecha = new Date();
 		formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		float total = 0;
 		int count = 0;
 		
-		String sentenciaSQL = "SELECT * FROM log WHERE fecha = '" + formatoFecha.format(fecha) + "'";
+		String fechaBD = sdf.format(fecha);
+	
+		String sentenciaSQL = "SELECT * FROM log WHERE fecha = '" + fechaBD + "'";
 		
 		
 		try {
@@ -271,7 +273,7 @@ public class DBConection {
 			
 			while(rs.next()) {
 				count++;
-				total += rs.getInt("precio");
+				total += rs.getFloat("precio");
 			}
 		//	String sentenciaSQL2 = "INSERT INTO caja values ('" + formatoFecha.format(fecha) + "','" + total + "')";
 			String sentenciaSQL2 = "INSERT INTO caja (fecha , cantidad) VALUES ('" + formatoFecha.format(fecha) + "','" + total + "') ON DUPLICATE KEY UPDATE cantidad = '" + total + "'";
